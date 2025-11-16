@@ -24,6 +24,14 @@ mermaid.initialize({ startOnLoad: true });
 ### Use in Diagrams
 
 ```mermaid
+flowchart LR
+    A[Lambda] --> B[S3]
+    B --> C[RDS]
+    A --> D[EC2]
+```
+
+**With AWS Icons** (architecture-beta syntax):
+```text
 architecture-beta
   group aws-services "AWS Services" {
     service lambda icon:aws:aws-lambda
@@ -32,6 +40,8 @@ architecture-beta
     service rds icon:aws:amazon-rds
   }
 ```
+
+> **Note**: The `architecture-beta` diagram type requires Mermaid v11+ and may not render in GitHub's markdown preview. Use the HTML examples below for full functionality.
 
 ## Icon Naming
 
