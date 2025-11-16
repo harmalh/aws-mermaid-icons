@@ -33,11 +33,11 @@ flowchart LR
 **With AWS Icons** (architecture-beta syntax):
 ```text
 architecture-beta
-  group aws-services "AWS Services" {
-    service lambda icon:aws:aws-lambda
-    service s3 icon:aws:aws-s3
-    service ec2 icon:aws:aws-ec2
-    service rds icon:aws:amazon-rds
+  group aws-services(aws:aws)[AWS Services] {
+    service lambda(aws:aws-lambda)[Lambda]
+    service s3(aws:amazon-simple-storage-service)[S3]
+    service ec2(aws:aws-ec2)[EC2]
+    service rds(aws:amazon-rds)[RDS]
   }
 ```
 
@@ -45,11 +45,13 @@ architecture-beta
 
 ## Icon Naming
 
-Icons use the prefix `aws:` and follow these naming conventions:
+Icons use the format `(aws:icon-name)` in Mermaid diagrams. The naming conventions are:
 
-- **AWS Services**: `aws:aws-{service-name}` (e.g., `aws:aws-lambda`, `aws:aws-s3`)
-- **Amazon Services**: `aws:amazon-{service-name}` (e.g., `aws:amazon-rds`, `aws:amazon-ec2`)
-- **Resource Icons**: `aws:{resource-name}` (e.g., `aws:amazon-eventbridge-topic`)
+- **AWS Services**: `(aws:aws-{service-name})` (e.g., `(aws:aws-lambda)`, `(aws:aws-glue)`)
+- **Amazon Services**: `(aws:amazon-{service-name})` (e.g., `(aws:amazon-rds)`, `(aws:amazon-s3)`)
+- **Resource Icons**: `(aws:{resource-name})` (e.g., `(aws:amazon-eventbridge-topic)`)
+
+**Note**: In architecture diagrams, icons are specified in parentheses: `service name(aws:icon-name)[Label]`
 
 ## Contents
 
@@ -106,8 +108,8 @@ This will:
 <body>
   <div class="mermaid">
     architecture-beta
-      service lambda icon:aws:aws-lambda
-      service s3 icon:aws:aws-s3
+      service lambda(aws:aws-lambda)[Lambda]
+      service s3(aws:amazon-simple-storage-service)[S3]
   </div>
 </body>
 </html>

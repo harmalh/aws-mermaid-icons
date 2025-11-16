@@ -56,21 +56,21 @@
         <h2>Example 1: Simple Architecture</h2>
         <div class="mermaid">
         architecture-beta
-            group frontend "Frontend" {
-                service amplify icon:aws:aws-amplify
-                service cloudfront icon:aws:amazon-cloudfront
+            group frontend(aws:aws)[Frontend] {
+                service amplify(aws:aws-amplify)[Amplify]
+                service cloudfront(aws:amazon-cloudfront)[CloudFront]
             }
             
-            group compute "Compute" {
-                service lambda icon:aws:aws-lambda
-                service ec2 icon:aws:aws-ec2
-                service ecs icon:aws:amazon-ecs
+            group compute(aws:aws)[Compute] {
+                service lambda(aws:aws-lambda)[Lambda]
+                service ec2(aws:aws-ec2)[EC2]
+                service ecs(aws:amazon-ecs)[ECS]
             }
             
-            group storage "Storage" {
-                service s3 icon:aws:aws-s3
-                service rds icon:aws:amazon-rds
-                service dynamodb icon:aws:amazon-dynamodb
+            group storage(aws:aws)[Storage] {
+                service s3(aws:amazon-simple-storage-service)[S3]
+                service rds(aws:amazon-rds)[RDS]
+                service dynamodb(aws:amazon-dynamodb)[DynamoDB]
             }
             
             amplify --> cloudfront
@@ -87,20 +87,20 @@
         <h2>Example 2: Data Pipeline</h2>
         <div class="mermaid">
         architecture-beta
-            group data-ingestion "Data Ingestion" {
-                service kinesis icon:aws:amazon-kinesis
-                service firehose icon:aws:amazon-data-firehose
+            group data-ingestion(aws:aws)[Data Ingestion] {
+                service kinesis(aws:amazon-kinesis)[Kinesis]
+                service firehose(aws:amazon-data-firehose)[Firehose]
             }
             
-            group processing "Processing" {
-                service glue icon:aws:aws-glue
-                service emr icon:aws:amazon-emr
+            group processing(aws:aws)[Processing] {
+                service glue(aws:aws-glue)[Glue]
+                service emr(aws:amazon-emr)[EMR]
             }
             
-            group analytics "Analytics" {
-                service athena icon:aws:amazon-athena
-                service redshift icon:aws:amazon-redshift
-                service quicksight icon:aws:amazon-quicksight
+            group analytics(aws:aws)[Analytics] {
+                service athena(aws:amazon-athena)[Athena]
+                service redshift(aws:amazon-redshift)[Redshift]
+                service quicksight(aws:amazon-quicksight)[QuickSight]
             }
             
             kinesis --> firehose
@@ -116,23 +116,23 @@
         <h2>Example 3: Serverless Application</h2>
         <div class="mermaid">
         architecture-beta
-            group api "API Layer" {
-                service apigateway icon:aws:aws-api-gateway
+            group api(aws:aws)[API Layer] {
+                service apigateway(aws:amazon-api-gateway)[API Gateway]
             }
             
-            group functions "Functions" {
-                service lambda1 icon:aws:aws-lambda
-                service lambda2 icon:aws:aws-lambda
+            group functions(aws:aws)[Functions] {
+                service lambda1(aws:aws-lambda)[Lambda 1]
+                service lambda2(aws:aws-lambda)[Lambda 2]
             }
             
-            group data "Data Layer" {
-                service dynamodb icon:aws:amazon-dynamodb
-                service s3 icon:aws:aws-s3
+            group data(aws:aws)[Data Layer] {
+                service dynamodb(aws:amazon-dynamodb)[DynamoDB]
+                service s3(aws:amazon-simple-storage-service)[S3]
             }
             
-            group messaging "Messaging" {
-                service sns icon:aws:amazon-sns
-                service sqs icon:aws:amazon-sqs
+            group messaging(aws:aws)[Messaging] {
+                service sns(aws:amazon-sns)[SNS]
+                service sqs(aws:amazon-sqs)[SQS]
             }
             
             apigateway --> lambda1
@@ -148,18 +148,18 @@
         <h2>Example 4: Machine Learning Pipeline</h2>
         <div class="mermaid">
         architecture-beta
-            group ml-services "ML Services" {
-                service sagemaker icon:aws:amazon-sagemaker
-                service bedrock icon:aws:amazon-bedrock
-                service rekognition icon:aws:amazon-rekognition
+            group ml-services(aws:aws)[ML Services] {
+                service sagemaker(aws:amazon-sagemaker)[SageMaker]
+                service bedrock(aws:amazon-bedrock)[Bedrock]
+                service rekognition(aws:amazon-rekognition)[Rekognition]
             }
             
-            group storage "Storage" {
-                service s3 icon:aws:aws-s3
+            group storage(aws:aws)[Storage] {
+                service s3(aws:amazon-simple-storage-service)[S3]
             }
             
-            group compute "Compute" {
-                service lambda icon:aws:aws-lambda
+            group compute(aws:aws)[Compute] {
+                service lambda(aws:aws-lambda)[Lambda]
             }
             
             s3 --> sagemaker
@@ -175,17 +175,17 @@
         <h2>Example 5: Security & Compliance</h2>
         <div class="mermaid">
         architecture-beta
-            group security "Security Services" {
-                service iam icon:aws:aws-iam
-                service kms icon:aws:aws-kms
-                service secrets icon:aws:aws-secrets-manager
-                service shield icon:aws:aws-shield
-                service waf icon:aws:aws-waf
+            group security(aws:aws)[Security Services] {
+                service iam(aws:aws-iam)[IAM]
+                service kms(aws:aws-kms)[KMS]
+                service secrets(aws:aws-secrets-manager)[Secrets Manager]
+                service shield(aws:aws-shield)[Shield]
+                service waf(aws:aws-waf)[WAF]
             }
             
-            group monitoring "Monitoring" {
-                service cloudwatch icon:aws:amazon-cloudwatch
-                service cloudtrail icon:aws:aws-cloudtrail
+            group monitoring(aws:aws)[Monitoring] {
+                service cloudwatch(aws:amazon-cloudwatch)[CloudWatch]
+                service cloudtrail(aws:aws-cloudtrail)[CloudTrail]
             }
             
             iam --> kms

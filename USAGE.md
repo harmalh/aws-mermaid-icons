@@ -31,29 +31,66 @@ flowchart LR
 **With AWS Icons** (architecture-beta - requires Mermaid v11+):
 ```text
 architecture-beta
-  service lambda icon:aws:aws-lambda
-  service s3 icon:aws:aws-s3
-  service ec2 icon:aws:aws-ec2
+  service lambda(aws:aws-lambda)[Lambda]
+  service s3(aws:amazon-simple-storage-service)[S3]
+  service ec2(aws:aws-ec2)[EC2]
 ```
 
 > **Note**: GitHub's markdown preview doesn't support `architecture-beta` diagrams. Use the HTML examples below for full icon support.
 
+## Migrating from `logos` Pack
+
+If you're currently using the `logos` pack from Iconify, here's how to migrate to our `aws` pack:
+
+### Icon Name Mapping
+
+| `logos` Pack | `aws` Pack | Notes |
+|--------------|------------|-------|
+| `logos:aws-api-gateway` | `aws:amazon-api-gateway` | Different name |
+| `logos:aws-lambda` | `aws:aws-lambda` | ✅ Exact match |
+| `logos:aws-s3` | `aws:amazon-simple-storage-service` | Different name |
+| `logos:aws-athena` | `aws:amazon-athena` | Different name |
+| `logos:aws-glue` | `aws:aws-glue` | ✅ Exact match |
+
+### Migration Steps
+
+1. **Register our pack** alongside or instead of `logos`:
+```javascript
+mermaid.registerIconPacks([
+  {
+    name: 'aws',
+    loader: () =>
+      fetch('https://raw.githubusercontent.com/harmalh/aws-mermaid-icons/main/iconify-json/aws-icons.json')
+        .then((res) => res.json()),
+  },
+]);
+```
+
+2. **Update icon references** in your diagrams:
+   - Change `(logos:aws-lambda)` → `(aws:aws-lambda)` ✅
+   - Change `(logos:aws-api-gateway)` → `(aws:amazon-api-gateway)`
+   - Change `(logos:aws-s3)` → `(aws:amazon-simple-storage-service)`
+
+3. **Verify icon names** - Use the icon name mapping table above or check `iconify-json/aws-icons.json` for exact names.
+
 ## Icon Naming
 
-All icons use the prefix `aws:` followed by the icon name.
+Icons use the format `(aws:icon-name)` in Mermaid diagrams. The naming conventions are:
 
 ### Naming Patterns
 
-- **AWS Services**: `aws:aws-{service}` (e.g., `aws:aws-lambda`, `aws:aws-s3`)
-- **Amazon Services**: `aws:amazon-{service}` (e.g., `aws:amazon-rds`, `aws:amazon-ec2`)
-- **Resources**: `aws:{resource-name}` (e.g., `aws:amazon-eventbridge-topic`)
+- **AWS Services**: `(aws:aws-{service})` (e.g., `(aws:aws-lambda)`, `(aws:aws-glue)`)
+- **Amazon Services**: `(aws:amazon-{service})` (e.g., `(aws:amazon-rds)`, `(aws:amazon-simple-storage-service)`)
+- **Resources**: `(aws:{resource-name})` (e.g., `(aws:amazon-eventbridge-topic)`)
+
+**Note**: In architecture diagrams, icons are specified in parentheses: `service name(aws:icon-name)[Label]`
 
 ### Finding Icon Names
 
 Icon names are derived from the original AWS Architecture Icon filenames:
-- `Arch_AWS-Lambda_48.svg` → `aws:aws-lambda`
-- `Arch_Amazon-RDS_48.svg` → `aws:amazon-rds`
-- `Res_Amazon-EventBridge_Topic_48.svg` → `aws:amazon-eventbridge-topic`
+- `Arch_AWS-Lambda_48.svg` → `(aws:aws-lambda)`
+- `Arch_Amazon-RDS_48.svg` → `(aws:amazon-rds)`
+- `Res_Amazon-EventBridge_Topic_48.svg` → `(aws:amazon-eventbridge-topic)`
 
 ## Complete Examples
 
@@ -81,8 +118,8 @@ Icon names are derived from the original AWS Architecture Icon filenames:
 <body>
   <div class="mermaid">
     architecture-beta
-      service lambda icon:aws:aws-lambda
-      service s3 icon:aws:aws-s3
+      service lambda(aws:aws-lambda)[Lambda]
+      service s3(aws:amazon-simple-storage-service)[S3]
   </div>
 </body>
 </html>
@@ -112,13 +149,13 @@ function AWSArchitectureDiagram() {
 
   const diagram = `
     architecture-beta
-      group compute "Compute" {
-        service lambda icon:aws:aws-lambda
-        service ec2 icon:aws:aws-ec2
+      group compute(aws:aws)[Compute] {
+        service lambda(aws:aws-lambda)[Lambda]
+        service ec2(aws:aws-ec2)[EC2]
       }
-      group storage "Storage" {
-        service s3 icon:aws:aws-s3
-        service rds icon:aws:amazon-rds
+      group storage(aws:aws)[Storage] {
+        service s3(aws:amazon-simple-storage-service)[S3]
+        service rds(aws:amazon-rds)[RDS]
       }
   `;
 
@@ -139,8 +176,8 @@ import mermaid from 'mermaid';
 
 const diagram = `
   architecture-beta
-    service lambda icon:aws:aws-lambda
-    service s3 icon:aws:aws-s3
+    service lambda(aws:aws-lambda)[Lambda]
+    service s3(aws:amazon-simple-storage-service)[S3]
 `;
 
 onMounted(() => {
@@ -185,11 +222,13 @@ This pack includes **855 AWS icons** (services, resources, and categories) cover
 ### Icons Not Showing
 
 1. **Check Icon Name**: Icon names are case-sensitive (e.g., `aws:aws-lambda`)
-2. **Check Prefix**: Must use `aws:` prefix (not `logos:`)
-3. **Verify Registration**: Ensure `registerIconPacks` was called before rendering
+2. **Check Syntax**: Use parentheses format `(aws:icon-name)` not `icon:aws:icon-name`
+3. **Check Prefix**: Must use `aws:` prefix (not `logos:`)
+4. **Verify Registration**: Ensure `registerIconPacks` was called before rendering
 
 ### Common Issues
 
+- **Wrong syntax**: Use `(aws:icon-name)` not `icon:aws:icon-name`
 - **Wrong prefix**: Use `aws:` not `logos:`
 - **Case sensitivity**: Icon names are lowercase with hyphens
 - **Timing**: Register icons before initializing Mermaid
