@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS Icons in Mermaid - Example</title>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+        
+        // Register AWS icon pack
+        // Replace with your GitHub raw URL after publishing
+        mermaid.registerIconPacks([
+            {
+                name: 'aws',
+                loader: () =>
+                    fetch('https://raw.githubusercontent.com/harmalh/aws-mermaid-icons/main/iconify-json/aws-icons.json')
+                        .then((res) => {
+                            if (!res.ok) {
+                                throw new Error(`HTTP error! status: ${res.status}`);
+                            }
+                            return res.json();
+                        })
+                        .catch((error) => {
+                            console.error('Failed to load AWS icons:', error);
+                            // Fallback: return empty pack
+                            return { prefix: 'aws', icons: {} };
+                        }),
+            },
+        ]);
+        
+        mermaid.initialize({ 
+            startOnLoad: true,
+            theme: 'default',
+        });
+    </script>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 { color: #232f3e; }
+        .diagram-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <h1>AWS Icons in Mermaid Architecture Diagrams</h1>
+    
+    <div class="diagram-container">
+        <h2>Example 1: Simple Architecture</h2>
+        <div class="mermaid">
+        architecture-beta
+            group frontend "Frontend" {
+                service amplify icon:aws:aws-amplify
+                service cloudfront icon:aws:amazon-cloudfront
+            }
+            
+            group compute "Compute" {
+                service lambda icon:aws:aws-lambda
+                service ec2 icon:aws:aws-ec2
+                service ecs icon:aws:amazon-ecs
+            }
+            
+            group storage "Storage" {
+                service s3 icon:aws:aws-s3
+                service rds icon:aws:amazon-rds
+                service dynamodb icon:aws:amazon-dynamodb
+            }
+            
+            amplify --> cloudfront
+            cloudfront --> lambda
+            lambda --> ec2
+            lambda --> ecs
+            ec2 --> s3
+            ecs --> rds
+            lambda --> dynamodb
+        </div>
+    </div>
+    
+    <div class="diagram-container">
+        <h2>Example 2: Data Pipeline</h2>
+        <div class="mermaid">
+        architecture-beta
+            group data-ingestion "Data Ingestion" {
+                service kinesis icon:aws:amazon-kinesis
+                service firehose icon:aws:amazon-data-firehose
+            }
+            
+            group processing "Processing" {
+                service glue icon:aws:aws-glue
+                service emr icon:aws:amazon-emr
+            }
+            
+            group analytics "Analytics" {
+                service athena icon:aws:amazon-athena
+                service redshift icon:aws:amazon-redshift
+                service quicksight icon:aws:amazon-quicksight
+            }
+            
+            kinesis --> firehose
+            firehose --> glue
+            glue --> emr
+            emr --> athena
+            athena --> redshift
+            redshift --> quicksight
+        </div>
+    </div>
+    
+    <div class="diagram-container">
+        <h2>Example 3: Serverless Application</h2>
+        <div class="mermaid">
+        architecture-beta
+            group api "API Layer" {
+                service apigateway icon:aws:aws-api-gateway
+            }
+            
+            group functions "Functions" {
+                service lambda1 icon:aws:aws-lambda
+                service lambda2 icon:aws:aws-lambda
+            }
+            
+            group data "Data Layer" {
+                service dynamodb icon:aws:amazon-dynamodb
+                service s3 icon:aws:aws-s3
+            }
+            
+            group messaging "Messaging" {
+                service sns icon:aws:amazon-sns
+                service sqs icon:aws:amazon-sqs
+            }
+            
+            apigateway --> lambda1
+            apigateway --> lambda2
+            lambda1 --> dynamodb
+            lambda2 --> s3
+            lambda1 --> sns
+            sns --> sqs
+        </div>
+    </div>
+    
+    <div class="diagram-container">
+        <h2>Example 4: Machine Learning Pipeline</h2>
+        <div class="mermaid">
+        architecture-beta
+            group ml-services "ML Services" {
+                service sagemaker icon:aws:amazon-sagemaker
+                service bedrock icon:aws:amazon-bedrock
+                service rekognition icon:aws:amazon-rekognition
+            }
+            
+            group storage "Storage" {
+                service s3 icon:aws:aws-s3
+            }
+            
+            group compute "Compute" {
+                service lambda icon:aws:aws-lambda
+            }
+            
+            s3 --> sagemaker
+            s3 --> bedrock
+            s3 --> rekognition
+            sagemaker --> lambda
+            bedrock --> lambda
+            rekognition --> lambda
+        </div>
+    </div>
+    
+    <div class="diagram-container">
+        <h2>Example 5: Security & Compliance</h2>
+        <div class="mermaid">
+        architecture-beta
+            group security "Security Services" {
+                service iam icon:aws:aws-iam
+                service kms icon:aws:aws-kms
+                service secrets icon:aws:aws-secrets-manager
+                service shield icon:aws:aws-shield
+                service waf icon:aws:aws-waf
+            }
+            
+            group monitoring "Monitoring" {
+                service cloudwatch icon:aws:amazon-cloudwatch
+                service cloudtrail icon:aws:aws-cloudtrail
+            }
+            
+            iam --> kms
+            kms --> secrets
+            shield --> waf
+            cloudtrail --> cloudwatch
+        </div>
+    </div>
+</body>
+</html>
+

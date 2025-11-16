@@ -1,0 +1,10 @@
+# Dependencies
+node_modules/
+
+# Build artifacts
+*.log
+.DS_Store
+
+# Keep icon files
+!iconify-json/
+!iconify-json/**

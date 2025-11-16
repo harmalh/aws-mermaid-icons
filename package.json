@@ -1,0 +1,28 @@
+{
+  "name": "aws-mermaid-icons",
+  "version": "1.0.0",
+  "description": "Complete AWS icon pack for Mermaid.js - 855+ icons",
+  "main": "iconify-json/aws-icons.json",
+  "type": "module",
+  "files": [
+    "iconify-json/aws-icons.json",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "aws",
+    "icons",
+    "mermaid",
+    "iconify",
+    "architecture",
+    "diagrams"
+  ],
+  "license": "SEE LICENSE IN LICENSE",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/harmalh/aws-mermaid-icons.git"
+  },
+  "scripts": {
+    "test": "node -e \"import('./iconify-json/aws-icons.json').then(d => console.log('Icons:', Object.keys(d.icons).length, 'Prefix:', d.prefix))\""
+  }
+}
