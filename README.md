@@ -1,6 +1,6 @@
 # AWS Icons for Mermaid
 
-Complete AWS icon pack for use with Mermaid.js architecture diagrams. Contains **855+ AWS service icons** from AWS Architecture Icons.
+Complete AWS icon pack for use with Mermaid.js architecture diagrams. Contains **855 AWS icons** including services, resources, and categories from AWS Architecture Icons.
 
 ## Quick Start
 
@@ -53,7 +53,10 @@ Icons use the prefix `aws:` and follow these naming conventions:
 
 ## Contents
 
-- **855+ icons** covering all major AWS services
+- **855 icons** including:
+  - **~300-400 AWS service icons** (Arch_*)
+  - **~200-300 resource icons** (Res_*) - e.g., S3 buckets, EventBridge topics
+  - **~50-100 category/group icons** - Architecture categories and groups
 - **Iconify JSON format** - Compatible with Mermaid and Iconify
 - **SVG sources** - Original SVG files included
 - **All AWS services** - Including ones already in Iconify

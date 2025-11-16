@@ -161,7 +161,7 @@ onMounted(() => {
 
 ## Available Icons
 
-This pack includes **855+ AWS icons** covering:
+This pack includes **855 AWS icons** (services, resources, and categories) covering:
 
 - **Compute**: EC2, Lambda, ECS, EKS, Fargate, App Runner, Batch, etc.
 - **Storage**: S3, EBS, EFS, FSx, Glacier, Storage Gateway, etc.
