@@ -209,4 +209,3 @@ For issues or questions:
 - Open an issue on GitHub
 - Check [Mermaid documentation](https://mermaid.js.org/config/icons.html)
 - Review icon names in `iconify-json/aws-icons.json`
-
