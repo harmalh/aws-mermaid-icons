@@ -79,50 +79,72 @@ npm run custom:build
 ```
 
 This will:
-1. Scan all SVG files in `Icons/` folder
-2. **Strip background rectangles** - Removes full-coverage rectangles that cause black block rendering
-3. **Remove empty background groups** - Cleans up groups that only contained backgrounds
-4. Convert SVG paths to Iconify format with `currentColor` fills/strokes
-5. Generate `iconify-json/aws-icons.json`
-6. Copy SVG sources to `svg/`
+1. **Filter icon sizes** (optional) - Run `npm run custom:filter` first to deduplicate icons by size
+2. Scan all SVG files in `Icons/` or `Icons_filtered/` folder
+3. **Extract background colors** - Captures category colors (e.g., Analytics purple, Compute orange)
+4. **Strip background rectangles** - Removes full-coverage rectangles that cause black block rendering
+5. **Apply colors to paths** - Replaces white icon paths with category background colors
+6. **Remove empty background groups** - Cleans up groups that only contained backgrounds
+7. **Preserve original colors** - Keeps AWS brand colors instead of converting to `currentColor`
+8. Generate `iconify-json/aws-icons.json`
+9. Copy SVG sources to `svg/`
 
-### Background Removal
+**Recommended workflow:**
+```bash
+npm run custom:filter  # Deduplicate icons (keeps preferred sizes)
+npm run custom:build   # Build icon pack with colors preserved
+```
 
-The build process automatically removes background rectangles from AWS Architecture Icons. These backgrounds cause icons to render as solid black blocks in Mermaid because they use `currentColor` which defaults to dark text color.
+### Background Removal & Color Preservation
+
+The build process automatically:
+1. **Extracts background colors** from AWS Architecture Icons (e.g., `#8C4FFF` purple for Analytics)
+2. **Removes background rectangles** that cause black block rendering
+3. **Applies background colors to icon paths** (replacing white paths with the category color)
 
 **What gets removed:**
 - Full-coverage rectangles (matching viewBox dimensions)
 - Rectangles with background-related IDs (`bg`, `background`, `rectangle`)
 - Empty background groups
 
-**Result:** Icons now have transparent backgrounds like the `logos` pack, allowing them to render properly in Mermaid diagrams.
+**Color handling:**
+- Original AWS brand colors are preserved (e.g., Analytics icons are purple `#8C4FFF`)
+- White icon paths are replaced with the category background color
+- Icons render with their native AWS colors, not monochrome
+
+**Result:** Icons have transparent backgrounds with colored icon shapes, matching the visual design of AWS Architecture Icons.
 
 ### Customizing Icon Colors
 
-Icons use `currentColor` for fills/strokes, which means they inherit the text color from Mermaid's theme. To customize colors:
+Icons preserve their native AWS colors by default. To override or customize:
 
-**Option 1: Mermaid Theme Variables**
-```javascript
-mermaid.initialize({
-    theme: 'default',
-    themeVariables: {
-        primaryTextColor: '#ff9900', // AWS orange
-        primaryColor: '#ff9900',
-    }
-});
-```
-
-**Option 2: CSS Override**
+**Option 1: CSS Override (All Icons)**
 ```css
 .mermaid .nodeIcon path {
     fill: #ff9900 !important; /* AWS orange */
 }
 ```
 
-**Option 3: Per-Icon Styling**
+**Option 2: Per-Category Styling**
 ```css
-.mermaid .nodeIcon[data-icon-name*="sagemaker"] path {
-    fill: #8C4FFF !important; /* SageMaker purple */
+/* Analytics icons (purple) */
+.mermaid .nodeIcon[data-icon-name*="athena"] path,
+.mermaid .nodeIcon[data-icon-name*="redshift"] path {
+    fill: #8C4FFF !important;
+}
+
+/* Compute icons (orange) */
+.mermaid .nodeIcon[data-icon-name*="ec2"] path,
+.mermaid .nodeIcon[data-icon-name*="lambda"] path {
+    fill: #FF9900 !important;
+}
+```
+
+**Option 3: Monochrome Mode**
+If you prefer monochrome icons like the `logos` pack, you can convert all fills to `currentColor`:
+```css
+.mermaid .nodeIcon path {
+    fill: currentColor !important;
 }
 ```
 

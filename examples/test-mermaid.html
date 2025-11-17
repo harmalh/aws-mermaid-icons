@@ -19,15 +19,8 @@
         mermaid.initialize({ 
             startOnLoad: true,
             theme: 'default',
-            themeVariables: {
-                // Set icon color to a visible color (not black)
-                primaryTextColor: '#1a1f3d',
-                primaryColor: '#ff9900', // AWS orange
-                primaryBorderColor: '#ff9900',
-                lineColor: '#1a1f3d',
-                secondaryColor: '#ff9900',
-                tertiaryColor: '#ff9900',
-            }
+            // Icons now have their native AWS colors preserved
+            // No need to override theme variables for icon colors
         });
     </script>
     <style>
@@ -54,10 +47,13 @@
             border: 1px solid #ddd;
             border-radius: 4px;
         }
-        /* Override icon colors if needed */
+        /* Icons now render with their native AWS colors */
+        /* Uncomment below to override with custom colors if needed */
+        /*
         .mermaid .nodeIcon path {
             fill: #1a1f3d !important;
         }
+        */
     </style>
 </head>
 <body>
