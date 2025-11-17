@@ -4,6 +4,8 @@ Complete AWS icon pack for use with Mermaid.js architecture diagrams. Contains *
 
 ## Quick Start
 
+> **Migrating from Iconify's `logos` pack?** See the [Migration Guide](MIGRATION_GUIDE.md) for step-by-step instructions and icon name mappings.
+
 ### Load Icons in Mermaid
 
 ```javascript
@@ -179,9 +181,18 @@ This pack is designed to be hosted on GitHub for easy CDN access:
 3. Update README with your GitHub username
 4. Use raw GitHub URLs for loading icons
 
+## Migration Guide
+
+If you're currently using Iconify's `logos` pack for AWS icons, see the [Migration Guide](MIGRATION_GUIDE.md) for:
+- Step-by-step migration instructions
+- Complete icon name mapping table
+- Code examples showing before/after
+- Troubleshooting common issues
+
 ## Support
 
 For issues or questions:
 - Open an issue on GitHub
 - Check [Mermaid documentation](https://mermaid.js.org/config/icons.html)
 - Review [Iconify format documentation](https://iconify.design/docs/)
+- See [Migration Guide](MIGRATION_GUIDE.md) for help migrating from `logos` pack
