@@ -80,9 +80,51 @@ npm run custom:build
 
 This will:
 1. Scan all SVG files in `Icons/` folder
-2. Convert them to Iconify format
-3. Generate `iconify-json/aws-icons.json`
-4. Copy SVG sources to `svg/`
+2. **Strip background rectangles** - Removes full-coverage rectangles that cause black block rendering
+3. **Remove empty background groups** - Cleans up groups that only contained backgrounds
+4. Convert SVG paths to Iconify format with `currentColor` fills/strokes
+5. Generate `iconify-json/aws-icons.json`
+6. Copy SVG sources to `svg/`
+
+### Background Removal
+
+The build process automatically removes background rectangles from AWS Architecture Icons. These backgrounds cause icons to render as solid black blocks in Mermaid because they use `currentColor` which defaults to dark text color.
+
+**What gets removed:**
+- Full-coverage rectangles (matching viewBox dimensions)
+- Rectangles with background-related IDs (`bg`, `background`, `rectangle`)
+- Empty background groups
+
+**Result:** Icons now have transparent backgrounds like the `logos` pack, allowing them to render properly in Mermaid diagrams.
+
+### Customizing Icon Colors
+
+Icons use `currentColor` for fills/strokes, which means they inherit the text color from Mermaid's theme. To customize colors:
+
+**Option 1: Mermaid Theme Variables**
+```javascript
+mermaid.initialize({
+    theme: 'default',
+    themeVariables: {
+        primaryTextColor: '#ff9900', // AWS orange
+        primaryColor: '#ff9900',
+    }
+});
+```
+
+**Option 2: CSS Override**
+```css
+.mermaid .nodeIcon path {
+    fill: #ff9900 !important; /* AWS orange */
+}
+```
+
+**Option 3: Per-Icon Styling**
+```css
+.mermaid .nodeIcon[data-icon-name*="sagemaker"] path {
+    fill: #8C4FFF !important; /* SageMaker purple */
+}
+```
 
 ## Usage Examples
 
@@ -188,6 +230,38 @@ If you're currently using Iconify's `logos` pack for AWS icons, see the [Migrati
 - Complete icon name mapping table
 - Code examples showing before/after
 - Troubleshooting common issues
+
+## Troubleshooting
+
+### Icons Render as Black Blocks
+
+**Problem:** Icons appear as solid black rectangles instead of showing the icon shape.
+
+**Solution:** This was caused by background rectangles in the original AWS icons. The build process now automatically removes these backgrounds. If you're using an older version of the pack:
+
+1. Rebuild the pack: `npm run custom:build`
+2. Ensure you're using the latest `aws-icons.json` from the repository
+3. Clear your browser cache and reload
+
+### Icons Show Question Mark
+
+**Problem:** Icons display as a blue square with a question mark.
+
+**Causes:**
+- Icon name doesn't exist in the pack
+- Icon pack not registered before diagram rendering
+- Network error loading the pack from GitHub
+
+**Solutions:**
+1. Check icon name exists: Search `iconify-json/aws-icons.json` for the icon name
+2. Register pack before rendering: Ensure `mermaid.registerIconPacks()` is called before `mermaid.initialize()`
+3. Check network: Verify GitHub raw URL is accessible
+
+### Icons Are Too Dark/Light
+
+**Problem:** Icons are hard to see due to color contrast.
+
+**Solution:** Customize icon colors using theme variables or CSS (see "Customizing Icon Colors" section above).
 
 ## Support
 
