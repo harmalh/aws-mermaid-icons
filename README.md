@@ -2,6 +2,25 @@
 
 Complete AWS icon pack for use with Mermaid.js architecture diagrams. Contains **855 AWS icons** including services, resources, and categories from AWS Architecture Icons.
 
+## Two Icon Variants Available
+
+This repository provides **two icon pack variants**:
+
+1. **Standard Pack** (this repository) - **Transparent backgrounds with colored glyphs**
+   - Icons have transparent backgrounds
+   - Icon shapes are colored (e.g., purple for Analytics, orange for Compute)
+   - Best for diagrams with custom backgrounds or when you want colored icon shapes
+   - URL: `https://raw.githubusercontent.com/harmalh/aws-mermaid-icons/main/iconify-json/aws-icons.json`
+
+2. **Background Pack** - **Colored tiles with white glyphs** (original AWS Architecture Icon style)
+   - Icons have colored background rectangles (tiles)
+   - Icon glyphs are white on colored backgrounds
+   - Matches the original AWS Architecture Icons visual style
+   - Available on branch `aws-mermaid-icons-with-background` (this repository)
+   - URL: `https://raw.githubusercontent.com/harmalh/aws-mermaid-icons/aws-mermaid-icons-with-background/iconify-json/aws-icons.json`
+
+**Choose the variant that best fits your diagram style!**
+
 ## Quick Start
 
 > **Migrating from Iconify's `logos` pack?** See the [Migration Guide](MIGRATION_GUIDE.md) for step-by-step instructions and icon name mappings.
@@ -92,7 +111,17 @@ This will:
 **Recommended workflow:**
 ```bash
 npm run custom:filter  # Deduplicate icons (keeps preferred sizes)
-npm run custom:build   # Build icon pack with colors preserved
+npm run custom:build   # Build standard pack (transparent backgrounds)
+```
+
+**To build both variants:**
+```bash
+npm run custom:build:dual  # Builds both standard and background packs
+```
+
+**To build background pack only:**
+```bash
+npm run custom:build:backgrounds  # Builds pack with background tiles preserved
 ```
 
 ### Background Removal & Color Preservation
